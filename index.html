@@ -12,287 +12,257 @@
 
 <style>
 
-* {
+*{box-sizing:border-box}
 
-  box-sizing: border-box;
+body{
 
-}
+  margin:0;
 
-body {
+  background:#f4f7fb;
 
-  margin: 0;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
-  background: #f4f7fb;
-
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-  color: #173b60;
+  color:#173b60
 
 }
 
-header {
+header{
 
-  background: #1976df;
+  background:#1976df;
 
-  color: white;
+  color:white;
 
-  text-align: center;
+  text-align:center;
 
-  padding: 16px 10px;
-
-}
-
-h1 {
-
-  margin: 0;
-
-  font-size: 22px;
+  padding:16px 10px
 
 }
 
-main {
+h1{margin:0;font-size:22px}
 
-  max-width: 600px;
+main{max-width:600px;margin:auto;padding:10px}
 
-  margin: auto;
+.trial{
 
-  padding: 10px;
+  background:white;
 
-}
+  border-radius:14px;
 
-.trial {
+  padding:12px;
 
-  background: white;
+  margin-bottom:12px;
 
-  border-radius: 14px;
-
-  padding: 12px;
-
-  margin-bottom: 12px;
-
-  box-shadow: 0 2px 8px #0002;
+  box-shadow:0 2px 8px #0002
 
 }
 
-.title {
+.title{font-weight:bold;font-size:18px;margin-bottom:10px}
 
-  font-weight: bold;
+.selected{
 
-  font-size: 18px;
+  display:flex;
 
-  margin-bottom: 10px;
+  justify-content:center;
 
-}
+  gap:7px;
 
-.selected {
-
-  display: flex;
-
-  justify-content: center;
-
-  gap: 7px;
-
-  margin-bottom: 10px;
+  margin-bottom:10px
 
 }
 
-.slot {
+.slot{
 
-  width: 48px;
+  width:48px;
 
-  height: 48px;
+  height:48px;
 
-  border: 2px solid #cbddec;
+  border:2px solid #cbddec;
 
-  border-radius: 10px;
+  border-radius:10px;
 
-  display: flex;
+  display:flex;
 
-  align-items: center;
+  align-items:center;
 
-  justify-content: center;
+  justify-content:center;
 
-  font-size: 22px;
+  font-size:22px;
 
-  font-weight: bold;
-
-}
-
-.slot.filled {
-
-  background: #1976df;
-
-  color: white;
-
-  border-color: #1976df;
+  font-weight:bold
 
 }
 
-.keypad {
+.slot.filled{
 
-  display: grid;
+  background:#1976df;
 
-  grid-template-columns: repeat(5, 1fr);
+  color:white;
 
-  gap: 6px;
-
-}
-
-.key {
-
-  height: 44px;
-
-  border: 1px solid #cbddec;
-
-  background: white;
-
-  border-radius: 9px;
-
-  font-size: 19px;
-
-  font-weight: bold;
+  border-color:#1976df
 
 }
 
-.unknown {
+.keypad{
 
-  background: #fff3cd;
+  display:grid;
 
-  border-color: #e5b93f;
+  grid-template-columns:repeat(5,1fr);
 
-}
-
-.key:active {
-
-  transform: scale(.96);
+  gap:6px
 
 }
 
-.buttons {
+.key{
 
-  display: flex;
+  height:44px;
 
-  gap: 7px;
+  border:1px solid #cbddec;
 
-  margin-top: 9px;
+  background:white;
 
-}
+  border-radius:9px;
 
-.action {
+  font-size:19px;
 
-  flex: 1;
-
-  border: 0;
-
-  border-radius: 9px;
-
-  padding: 11px 5px;
-
-  font-weight: bold;
-
-  font-size: 14px;
+  font-weight:bold
 
 }
 
-.clear {
+.unknown{
 
-  background: #edf1f5;
+  background:#fff3cd;
 
-}
-
-.confirm {
-
-  background: #1976df;
-
-  color: white;
+  border-color:#e5b93f
 
 }
 
-.result {
+.key:active{transform:scale(.96)}
 
-  margin-top: 10px;
+.buttons{
 
-  text-align: center;
+  display:flex;
 
-  background: #edfbf5;
+  gap:7px;
 
-  border: 1px solid #b9e8d3;
-
-  border-radius: 10px;
-
-  padding: 10px;
+  margin-top:9px
 
 }
 
-.result-title {
+.action{
 
-  font-size: 13px;
+  flex:1;
 
-  font-weight: bold;
+  border:0;
 
-  color: #13865b;
+  border-radius:9px;
 
-}
+  padding:11px 5px;
 
-.answer {
+  font-weight:bold;
 
-  font-size: 30px;
-
-  font-weight: 800;
-
-  color: #07965c;
+  font-size:14px
 
 }
 
-.prediction {
+.clear{background:#edf1f5}
 
-  margin-top: 8px;
+.confirm{background:#1976df;color:white}
 
-  background: #eef6ff;
+.reset{
 
-  border: 1px solid #cfe4fb;
+  width:100%;
 
-  border-radius: 9px;
+  margin-top:9px;
 
-  padding: 8px;
+  background:#ffe9e9;
 
-  font-size: 14px;
+  color:#c62828;
 
-}
+  border:1px solid #f3b7b7;
 
-.possible {
+  border-radius:9px;
 
-  margin-top: 7px;
+  padding:11px;
 
-  padding: 7px;
+  font-weight:bold;
 
-  background: white;
-
-  border-radius: 7px;
+  font-size:14px
 
 }
 
-.note {
+.result{
 
-  font-size: 12px;
+  margin-top:10px;
 
-  color: #607890;
+  text-align:center;
 
-  text-align: center;
+  background:#edfbf5;
 
-  margin-top: 8px;
+  border:1px solid #b9e8d3;
+
+  border-radius:10px;
+
+  padding:10px
 
 }
 
-footer {
+.result-title{
 
-  text-align: center;
+  font-size:13px;
 
-  font-size: 12px;
+  font-weight:bold;
 
-  color: #607890;
+  color:#13865b
 
-  padding: 5px 15px 20px;
+}
+
+.answer{
+
+  font-size:30px;
+
+  font-weight:800;
+
+  color:#07965c
+
+}
+
+.prediction{
+
+  margin-top:8px;
+
+  background:#eef6ff;
+
+  border:1px solid #cfe4fb;
+
+  border-radius:9px;
+
+  padding:8px;
+
+  font-size:14px
+
+}
+
+.possible{
+
+  margin-top:7px;
+
+  padding:7px;
+
+  background:white;
+
+  border-radius:7px
+
+}
+
+footer{
+
+  text-align:center;
+
+  font-size:12px;
+
+  color:#607890;
+
+  padding:5px 15px 20px
 
 }
 
@@ -304,7 +274,7 @@ footer {
 
 <header>
 
-  <h1>4数字 → 2数字</h1>
+<h1>4数字 → 2数字</h1>
 
 </header>
 
@@ -312,415 +282,327 @@ footer {
 
 <footer>
 
-  0〜9または❔をタッチして4つ選択してください
+0〜9または❔をタッチして4つ選択してください
 
 </footer>
 
 <script>
 
-const groups = [
+const groups=[
 
-  {
+ {numbers:[0,2,5,7],result:[0,5]},
 
-    numbers: [0, 2, 5, 7],
+ {numbers:[1,3,6,8],result:[1,6]},
 
-    result: [0, 5]
+ {numbers:[2,4,7,9],result:[2,7]},
 
-  },
+ {numbers:[0,3,5,8],result:[3,8]},
 
-  {
-
-    numbers: [1, 3, 6, 8],
-
-    result: [1, 6]
-
-  },
-
-  {
-
-    numbers: [2, 4, 7, 9],
-
-    result: [2, 7]
-
-  },
-
-  {
-
-    numbers: [0, 3, 5, 8],
-
-    result: [3, 8]
-
-  },
-
-  {
-
-    numbers: [1, 4, 6, 9],
-
-    result: [4, 9]
-
-  }
+ {numbers:[1,4,6,9],result:[4,9]}
 
 ];
 
-const trials = Array.from(
+const trials=Array.from(
 
-  { length: 4 },
+ {length:4},
 
-  () => ({
+ ()=>({
 
-    numbers: [],
+   numbers:[],
 
-    result: null
+   result:null,
 
-  })
+   predictionText:""
+
+ })
 
 );
 
-/* --------------------
+function render(){
 
-   画面表示
+ const app=document.getElementById("app");
 
--------------------- */
+ app.innerHTML="";
 
-function render() {
+ trials.forEach((trial,index)=>{
 
-  const app = document.getElementById("app");
+   const section=document.createElement("section");
 
-  app.innerHTML = "";
+   section.className="trial";
 
-  trials.forEach((trial, index) => {
+   let slots="";
 
-    const section = document.createElement("section");
+   for(let i=0;i<4;i++){
 
-    section.className = "trial";
+     const value=trial.numbers[i];
 
-    let slots = "";
+     slots+=`
 
-    for (let i = 0; i < 4; i++) {
+       <div class="slot ${value!==undefined?"filled":""}">
 
-      const value = trial.numbers[i];
+         ${value===undefined?"?":value===null?"❔":value}
 
-      slots += `
+       </div>
 
-        <div class="slot ${value !== undefined ? "filled" : ""}">
+     `;
 
-          ${value === undefined ? "?" : value === null ? "❔" : value}
+   }
 
-        </div>
+   let html=`
 
-      `;
+     <div class="title">${index+1}回目</div>
 
-    }
+     <div class="selected">
 
-    let html = `
+       ${slots}
 
-      <div class="title">${index + 1}回目</div>
+     </div>
 
-      <div class="selected">
+   `;
 
-        ${slots}
+   if(trial.result!==null){
 
-      </div>
+     html+=`
 
-    `;
+       <div class="result">
 
-    /* 確定後 */
+         <div class="result-title">
 
-    if (trial.result !== null) {
+           対応する2つの数字
 
-      html += `
+         </div>
 
-        <div class="result">
+         <div class="answer">
 
-          <div class="result-title">
+           ${trial.result.map(r=>r.join("・")).join(" ／ ")}
 
-            対応する2つの数字
+         </div>
 
-          </div>
+         ${
 
-          <div class="answer">
+           trial.predictionText
 
-            ${trial.result.map(x => x.join ? x.join("・") : x).join(" ／ ")}
+           ? `<div class="prediction">${trial.predictionText}</div>`
 
-          </div>
+           : ""
 
-      `;
+         }
 
-      if (trial.predictionText) {
+       </div>
 
-        html += `
+       <button class="reset"
 
-          <div class="prediction">
+         onclick="resetTrial(${index})">
 
-            ${trial.predictionText}
+         🔄 この試行をリセット
 
-          </div>
+       </button>
 
-        `;
+     `;
 
-      }
+   }else{
 
-      html += `</div>`;
+     html+=`
 
-    }
+       <div class="keypad">
 
-    /* 入力中 */
+     `;
 
-    else {
+     for(let n=0;n<=9;n++){
 
-      html += `
+       html+=`
 
-        <div class="keypad">
+         <button class="key"
 
-      `;
+           onclick="selectNumber(${index},${n})">
 
-      for (let n = 0; n <= 9; n++) {
+           ${n}
 
-        html += `
+         </button>
 
-          <button class="key"
+       `;
 
-            onclick="selectNumber(${index}, ${n})">
+     }
 
-            ${n}
+     html+=`
 
-          </button>
+       <button class="key unknown"
 
-        `;
+         onclick="selectUnknown(${index})">
 
-      }
+         ❔
 
-      html += `
+       </button>
 
-        <button class="key unknown"
+       </div>
 
-          onclick="selectUnknown(${index})">
+       <div class="buttons">
 
-          ❔
+         <button class="action clear"
 
-        </button>
+           onclick="clearNumbers(${index})">
 
-        </div>
+           選択をクリア
 
-        <div class="buttons">
+         </button>
 
-          <button class="action clear"
+         <button class="action confirm"
 
-            onclick="clearNumbers(${index})">
+           onclick="confirmNumbers(${index})">
 
-            選択をクリア
+           4つを確定
 
-          </button>
+         </button>
 
-          <button class="action confirm"
+       </div>
 
-            onclick="confirmNumbers(${index})">
+     `;
 
-            4つを確定
+   }
 
-          </button>
+   section.innerHTML=html;
 
-        </div>
+   app.appendChild(section);
 
-      `;
-
-    }
-
-    section.innerHTML = html;
-
-    app.appendChild(section);
-
-  });
+ });
 
 }
 
-/* --------------------
+function selectNumber(index,number){
 
-   数字を選択
+ const trial=trials[index];
 
--------------------- */
+ if(trial.numbers.length>=4)return;
 
-function selectNumber(index, number) {
+ if(trial.numbers.includes(number))return;
 
-  const trial = trials[index];
+ trial.numbers.push(number);
 
-  if (trial.result !== null) return;
-
-  if (trial.numbers.length >= 4) return;
-
-  if (trial.numbers.some(x => x === number)) return;
-
-  trial.numbers.push(number);
-
-  render();
+ render();
 
 }
 
-/* --------------------
+function selectUnknown(index){
 
-   ❔を選択
+ const trial=trials[index];
 
--------------------- */
+ if(trial.numbers.length>=4)return;
 
-function selectUnknown(index) {
+ trial.numbers.push(null);
 
-  const trial = trials[index];
-
-  if (trial.result !== null) return;
-
-  if (trial.numbers.length >= 4) return;
-
-  trial.numbers.push(null);
-
-  render();
+ render();
 
 }
 
-/* --------------------
+function clearNumbers(index){
 
-   クリア
+ trials[index].numbers=[];
 
--------------------- */
-
-function clearNumbers(index) {
-
-  const trial = trials[index];
-
-  if (trial.result !== null) return;
-
-  trial.numbers = [];
-
-  render();
+ render();
 
 }
 
-/* --------------------
+function resetTrial(index){
 
-   確定
+ trials[index]={
 
--------------------- */
+   numbers:[],
 
-function confirmNumbers(index) {
+   result:null,
 
-  const trial = trials[index];
+   predictionText:""
 
-  if (trial.numbers.length !== 4) {
+ };
 
-    alert("4つの数字を選んでください");
+ render();
 
-    return;
+}
 
-  }
+function confirmNumbers(index){
 
-  const known = trial.numbers.filter(x => x !== null);
+ const trial=trials[index];
 
-  /*
+ if(trial.numbers.length!==4){
 
-    既知の数字を全部含むグループを探す
+   alert("4つの数字を選んでください");
 
-  */
+   return;
 
-  const candidates = groups.filter(group => {
+ }
 
-    return known.every(n =>
+ const known=trial.numbers.filter(x=>x!==null);
 
-      group.numbers.includes(n)
+ const candidates=groups.filter(group=>
 
-    );
+   known.every(n=>group.numbers.includes(n))
 
-  });
+ );
 
-  /* 候補なし */
+ if(candidates.length===0){
 
-  if (candidates.length === 0) {
+   alert("この組み合わせに対応する候補がありません。");
 
-    alert("この組み合わせに対応する候補がありません。");
+   return;
 
-    return;
+ }
 
-  }
+ if(candidates.length===1){
 
-  /*
+   const group=candidates[0];
 
-    候補が1つ
+   const missing=group.numbers.filter(
 
-    → 不明な数字を予測
+     n=>!known.includes(n)
 
-  */
+   );
 
-  if (candidates.length === 1) {
+   trial.result=[group.result];
 
-    const group = candidates[0];
+   if(known.length<4){
 
-    const missing = group.numbers.filter(
+     trial.predictionText=
 
-      n => !known.includes(n)
+       "🔮 予測した数字："+
 
-    );
+       missing.join("・");
 
-    trial.result = [group.result];
+   }
 
-    if (known.length < 4) {
+   render();
 
-      trial.predictionText =
+   return;
 
-        "予測した数字： " +
+ }
 
-        missing.join("・");
+ trial.result=candidates.map(group=>group.result);
 
-    } else {
+ let text="<b>🔮 複数の可能性があります</b>";
 
-      trial.predictionText = "";
+ candidates.forEach(group=>{
 
-    }
+   const missing=group.numbers.filter(
 
-    render();
+     n=>!known.includes(n)
 
-    return;
+   );
 
-  }
+   text+=`
 
-  /*
+     <div class="possible">
 
-    候補が複数
+       予測：${missing.join("・")}
 
-    → 全候補を表示
+       → 答え：${group.result.join("・")}
 
-  */
+     </div>
 
-  trial.result = candidates.map(
+   `;
 
-    group => group.result
+ });
 
-  );
+ trial.predictionText=text;
 
-  let text = "<b>複数の可能性があります</b>";
-
-  candidates.forEach(group => {
-
-    const missing = group.numbers.filter(
-
-      n => !known.includes(n)
-
-    );
-
-    text += `
-
-      <div class="possible">
-
-        予測：${missing.length ? missing.join("・") : "なし"}
-
-        → 答え：${group.result.join("・")}
-
-      </div>
-
-    `;
-
-  });
-
-  trial.predictionText = text;
-
-  render();
+ render();
 
 }
 
