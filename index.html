@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>4数字 → 2数字</title>
+
+<style>
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+body {
+
+  margin: 0;
+
+  background: #f4f7fb;
+
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+  color: #173b60;
+
+}
+
+header {
+
+  background: #1976df;
+
+  color: white;
+
+  text-align: center;
+
+  padding: 16px 10px;
+
+}
+
+h1 {
+
+  margin: 0;
+
+  font-size: 22px;
+
+}
+
+main {
+
+  max-width: 600px;
+
+  margin: auto;
+
+  padding: 10px;
+
+}
+
+.trial {
+
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 12px;
+
+  margin-bottom: 12px;
+
+  box-shadow: 0 2px 8px #0002;
+
+}
+
+.title {
+
+  font-weight: bold;
+
+  font-size: 18px;
+
+  margin-bottom: 10px;
+
+}
+
+.selected {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-bottom: 10px;
+
+}
+
+.slot {
+
+  width: 48px;
+
+  height: 48px;
+
+  border: 2px solid #cbddec;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+}
+
+.slot.filled {
+
+  background: #1976df;
+
+  color: white;
+
+  border-color: #1976df;
+
+}
+
+.keypad {
+
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 6px;
+
+}
+
+.key {
+
+  height: 44px;
+
+  border: 1px solid #cbddec;
+
+  background: white;
+
+  border-radius: 9px;
+
+  font-size: 19px;
+
+  font-weight: bold;
+
+}
+
+.unknown {
+
+  background: #fff3cd;
+
+  border-color: #e5b93f;
+
+}
+
+.key:active {
+
+  transform: scale(.96);
+
+}
+
+.buttons {
+
+  display: flex;
+
+  gap: 7px;
+
+  margin-top: 9px;
+
+}
+
+.action {
+
+  flex: 1;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  padding: 11px 5px;
+
+  font-weight: bold;
+
+  font-size: 14px;
+
+}
+
+.clear {
+
+  background: #edf1f5;
+
+}
+
+.confirm {
+
+  background: #1976df;
+
+  color: white;
+
+}
+
+.result {
+
+  margin-top: 10px;
+
+  text-align: center;
+
+  background: #edfbf5;
+
+  border: 1px solid #b9e8d3;
+
+  border-radius: 10px;
+
+  padding: 10px;
+
+}
+
+.result-title {
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  color: #13865b;
+
+}
+
+.answer {
+
+  font-size: 30px;
+
+  font-weight: 800;
+
+  color: #07965c;
+
+}
+
+.prediction {
+
+  margin-top: 8px;
+
+  background: #eef6ff;
+
+  border: 1px solid #cfe4fb;
+
+  border-radius: 9px;
+
+  padding: 8px;
+
+  font-size: 14px;
+
+}
+
+.possible {
+
+  margin-top: 7px;
+
+  padding: 7px;
+
+  background: white;
+
+  border-radius: 7px;
+
+}
+
+.note {
+
+  font-size: 12px;
+
+  color: #607890;
+
+  text-align: center;
+
+  margin-top: 8px;
+
+}
+
+footer {
+
+  text-align: center;
+
+  font-size: 12px;
+
+  color: #607890;
+
+  padding: 5px 15px 20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>4数字 → 2数字</h1>
+
+</header>
+
+<main id="app"></main>
+
+<footer>
+
+  0〜9または❔をタッチして4つ選択してください
+
+</footer>
+
+<script>
+
+const groups = [
+
+  {
+
+    numbers: [0, 2, 5, 7],
+
+    result: [0, 5]
+
+  },
+
+  {
+
+    numbers: [1, 3, 6, 8],
+
+    result: [1, 6]
+
+  },
+
+  {
+
+    numbers: [2, 4, 7, 9],
+
+    result: [2, 7]
+
+  },
+
+  {
+
+    numbers: [0, 3, 5, 8],
+
+    result: [3, 8]
+
+  },
+
+  {
+
+    numbers: [1, 4, 6, 9],
+
+    result: [4, 9]
+
+  }
+
+];
+
+const trials = Array.from(
+
+  { length: 4 },
+
+  () => ({
+
+    numbers: [],
+
+    result: null
+
+  })
+
+);
+
+/* --------------------
+
+   画面表示
+
+-------------------- */
+
+function render() {
+
+  const app = document.getElementById("app");
+
+  app.innerHTML = "";
+
+  trials.forEach((trial, index) => {
+
+    const section = document.createElement("section");
+
+    section.className = "trial";
+
+    let slots = "";
+
+    for (let i = 0; i < 4; i++) {
+
+      const value = trial.numbers[i];
+
+      slots += `
+
+        <div class="slot ${value !== undefined ? "filled" : ""}">
+
+          ${value === undefined ? "?" : value === null ? "❔" : value}
+
+        </div>
+
+      `;
+
+    }
+
+    let html = `
+
+      <div class="title">${index + 1}回目</div>
+
+      <div class="selected">
+
+        ${slots}
+
+      </div>
+
+    `;
+
+    /* 確定後 */
+
+    if (trial.result !== null) {
+
+      html += `
+
+        <div class="result">
+
+          <div class="result-title">
+
+            対応する2つの数字
+
+          </div>
+
+          <div class="answer">
+
+            ${trial.result.map(x => x.join ? x.join("・") : x).join(" ／ ")}
+
+          </div>
+
+      `;
+
+      if (trial.predictionText) {
+
+        html += `
+
+          <div class="prediction">
+
+            ${trial.predictionText}
+
+          </div>
+
+        `;
+
+      }
+
+      html += `</div>`;
+
+    }
+
+    /* 入力中 */
+
+    else {
+
+      html += `
+
+        <div class="keypad">
+
+      `;
+
+      for (let n = 0; n <= 9; n++) {
+
+        html += `
+
+          <button class="key"
+
+            onclick="selectNumber(${index}, ${n})">
+
+            ${n}
+
+          </button>
+
+        `;
+
+      }
+
+      html += `
+
+        <button class="key unknown"
+
+          onclick="selectUnknown(${index})">
+
+          ❔
+
+        </button>
+
+        </div>
+
+        <div class="buttons">
+
+          <button class="action clear"
+
+            onclick="clearNumbers(${index})">
+
+            選択をクリア
+
+          </button>
+
+          <button class="action confirm"
+
+            onclick="confirmNumbers(${index})">
+
+            4つを確定
+
+          </button>
+
+        </div>
+
+      `;
+
+    }
+
+    section.innerHTML = html;
+
+    app.appendChild(section);
+
+  });
+
+}
+
+/* --------------------
+
+   数字を選択
+
+-------------------- */
+
+function selectNumber(index, number) {
+
+  const trial = trials[index];
+
+  if (trial.result !== null) return;
+
+  if (trial.numbers.length >= 4) return;
+
+  if (trial.numbers.some(x => x === number)) return;
+
+  trial.numbers.push(number);
+
+  render();
+
+}
+
+/* --------------------
+
+   ❔を選択
+
+-------------------- */
+
+function selectUnknown(index) {
+
+  const trial = trials[index];
+
+  if (trial.result !== null) return;
+
+  if (trial.numbers.length >= 4) return;
+
+  trial.numbers.push(null);
+
+  render();
+
+}
+
+/* --------------------
+
+   クリア
+
+-------------------- */
+
+function clearNumbers(index) {
+
+  const trial = trials[index];
+
+  if (trial.result !== null) return;
+
+  trial.numbers = [];
+
+  render();
+
+}
+
+/* --------------------
+
+   確定
+
+-------------------- */
+
+function confirmNumbers(index) {
+
+  const trial = trials[index];
+
+  if (trial.numbers.length !== 4) {
+
+    alert("4つの数字を選んでください");
+
+    return;
+
+  }
+
+  const known = trial.numbers.filter(x => x !== null);
+
+  /*
+
+    既知の数字を全部含むグループを探す
+
+  */
+
+  const candidates = groups.filter(group => {
+
+    return known.every(n =>
+
+      group.numbers.includes(n)
+
+    );
+
+  });
+
+  /* 候補なし */
+
+  if (candidates.length === 0) {
+
+    alert("この組み合わせに対応する候補がありません。");
+
+    return;
+
+  }
+
+  /*
+
+    候補が1つ
+
+    → 不明な数字を予測
+
+  */
+
+  if (candidates.length === 1) {
+
+    const group = candidates[0];
+
+    const missing = group.numbers.filter(
+
+      n => !known.includes(n)
+
+    );
+
+    trial.result = [group.result];
+
+    if (known.length < 4) {
+
+      trial.predictionText =
+
+        "予測した数字： " +
+
+        missing.join("・");
+
+    } else {
+
+      trial.predictionText = "";
+
+    }
+
+    render();
+
+    return;
+
+  }
+
+  /*
+
+    候補が複数
+
+    → 全候補を表示
+
+  */
+
+  trial.result = candidates.map(
+
+    group => group.result
+
+  );
+
+  let text = "<b>複数の可能性があります</b>";
+
+  candidates.forEach(group => {
+
+    const missing = group.numbers.filter(
+
+      n => !known.includes(n)
+
+    );
+
+    text += `
+
+      <div class="possible">
+
+        予測：${missing.length ? missing.join("・") : "なし"}
+
+        → 答え：${group.result.join("・")}
+
+      </div>
+
+    `;
+
+  });
+
+  trial.predictionText = text;
+
+  render();
+
+}
+
+render();
+
+</script>
+
+</body>
+
+</html>
